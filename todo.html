@@ -1,13 +1,56 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="todoApp">
 <head>
 	<title>First Test</title>
-	<script src="angular.js"></script>
 	<link href="bootstrap.css" rel="stylesheet" />
 	<link href="bootstrap-theme.css" rel="stylesheet" />
+	<script src="angular.js"></script>
+	<script type="text/javascript">
+		var model = {
+			user : "Hercule",
+			items: 
+			[
+			{ action: "Buy Flowers", done: false },
+			{ action: "Get Shoes", done: false },
+			{ action: "Collect Tickets", done: true },
+			{ action: "Call Joe", done: false }
+			]
+		};
+		var todoApp = angular.module("todoApp",[]);
+
+		var TodoController = todoApp.controller("TodoCtrl",function($scope){
+			$scope.todo = model;
+		});
+
+	</script>	
 </head>
-<body>
-	<div class="btn btn-default">{{"AngularJS"}}</div>
-	<div class="btn btn-success">Bootstrap</div>
+<body ng-controller="TodoCtrl">
+	<div class="container">
+		<div class="row">
+			<div class="page-header">
+				<h2 class="heading">{{todo.user}}Todo List <span class="label label-default">{{todo.items.length}}</span></h2>
+			</div>
+			<div>
+			<input type="text" class="form-control">
+				<button class="btn btn-default">Add</button>
+				<table class="table striped">
+					<thead>
+						<tr>
+							<th>Description</th>
+							<th>Done</th>
+						</tr>
+					</thead>
+					<tbody >
+						<tr ng-repeat="elem in todo.items">
+							<td> {{elem.action}} </td>
+							<td> <input type="checkbox" ng-bind="{{elem.done}}"> </td>
+							<td> {{elem.done}} </td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>	
+	</div>
+
 </body>
 </html>
